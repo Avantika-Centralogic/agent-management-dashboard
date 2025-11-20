@@ -5,14 +5,13 @@ import AgentForm from './AgentForm';
 import { useAgentContext } from '../context/AgentContext';
 
 const AgentDrawer = () => {
-  const { isDrawerOpen, setDrawerOpen, selectedAgent, setSelectedAgent } = useAgentContext();
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const { isDrawerOpen, setDrawerOpen, selectedAgent, setSelectedAgent, isEditing, setIsEditing } = useAgentContext();
 
   useEffect(() => {
-    // if opening for add, go to edit mode
+    // if opening for add, go to edit mode; if closing, reset
     if (isDrawerOpen && !selectedAgent) setIsEditing(true);
-    if (isDrawerOpen && selectedAgent) setIsEditing(false);
-  }, [isDrawerOpen, selectedAgent]);
+    if (!isDrawerOpen) setIsEditing(false);
+  }, [isDrawerOpen, selectedAgent, setIsEditing]);
 
   const close = () => {
     setDrawerOpen(false);

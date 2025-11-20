@@ -6,6 +6,8 @@ interface AgentContextProps {
   setDrawerOpen: (open: boolean) => void;
   selectedAgent: Agent | null;
   setSelectedAgent: (agent: Agent | null) => void;
+  isEditing: boolean;
+  setIsEditing: (v: boolean) => void;
 }
 
 const AgentContext = createContext<AgentContextProps | undefined>(undefined);
@@ -19,9 +21,10 @@ export const useAgentContext = () => {
 export const AgentProvider = ({ children }: { children: ReactNode }) => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   return (
-    <AgentContext.Provider value={{ isDrawerOpen, setDrawerOpen, selectedAgent, setSelectedAgent }}>
+    <AgentContext.Provider value={{ isDrawerOpen, setDrawerOpen, selectedAgent, setSelectedAgent, isEditing, setIsEditing }}>
       {children}
     </AgentContext.Provider>
   );
