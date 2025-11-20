@@ -34,7 +34,10 @@ const computeAgeFromBirthdate = (birthdate: string) => {
 const validationSchema = Yup.object({
   name: Yup.string().required('Name is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().min(6, 'Minimum 6 characters').required('Password is required'),
+  // strong password: at least 8 chars, uppercase, lowercase, number, special char, no spaces
+  password: Yup.string()
+    .required('Password is required')
+    .matches(/^(?=\S+$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/, 'Password must be at least 8 characters, include uppercase, lowercase, number, and special character, and contain no spaces'),
   phone: Yup.string().matches(/^\d{10}$/, 'Phone must be 10 digits').required('Phone is required'),
   qualification: Yup.string().required('Qualification is required'),
   age: Yup.number().typeError('Age must be a number').integer('Age must be an integer').min(18, 'Minimum age is 18').max(100, 'Maximum age is 100').required('Age is required')
